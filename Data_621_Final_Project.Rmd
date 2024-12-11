@@ -271,10 +271,10 @@ ggplot(gather(mydata), aes(value)) +
 
 
 
+### Male and Female Participant Distribution
 
-
-The participants in the study are almost 70% male, and should be taken into consideration when used as an independent variable to predict heart disease:
-
+Signs and symptoms of heart disease are different between men and women. While chest pain is a discernible symptom among men, women have less obvious symptoms. While women may also experience chest pressure, other symptoms they may also report include nausea, sweating, vomiting, and pain in the neck, jaw, throat, abdomen or back. Additionally, women have smaller blood vessels and arteries, and the muscular walls of women’s hearts are thinner. Therefore, it can be more difficult to identify heart disease and cause delays in treatment.
+The participants in the study are almost 70% male, and should be taken into consideration when used as an independent variable to predict heart disease. When analyzing the breakdown of male and female participants with and without heart disease, 72.4% of female participants had the disease, an extraordinary high percentage given the small number of female participants. Conversely, almost 58% percent of male participants did not have heart disease. This is significant, since diagnosing heart disease in women is more difficult than in men, for reasons previously stated. The breakdown of males and females with and without heart disease by different chest pain levels brings into further focus how symptoms vary by gender. Unsurprisingly, for participants without heart disease, 72.6% of males and 87.2% of females reported a level 0 chest pain. When analyzing participants with heart disease, the breakdown of chest pain levels between males and females reveals interesting observations. 46.5% of female participants reported a chest pain level of 2, the highest percentage among all levels reported among all participants with heart disease. 38% of males with heart disease reported a chest pain level of 2 as well, which was the 2nd highest percentage among all levels reported among all participants with heart disease. When comparing the highest level of chest pain (3) between males and females, 12.7% of males reported a chest pain level of 3, compared to 5.8% of females who reported the same chest pain levels. This is important to highlight, illustrating how males can exhibit more pronounced chest pain levels compared to their female counterparts. For 
 
 ```{r}
 gender_data <- mydata.clean %>%
@@ -295,17 +295,113 @@ ggplot(gender_data, aes(x=factor(sex), y=sum_count, fill= factor(sex))) +
 
 
 
+```{r}
+mydata.clean %>% 
+
+  group_by(sex, target) %>% 
+
+  summarise(count = n()) %>% 
+
+  group_by(sex) %>% 
+
+  mutate(percentage = (count / sum(count)) * 100) %>%
+
+ggplot(aes(x=sex, y=count, fill= factor(target))) +
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = paste0(round(percentage, 1), "%")), 
+            position = position_stack(vjust = 0.5), size = 5, color = "white") + 
+  labs(title="Frequency and Percentage of Participants With and Without Heart Disease \n for Males and Females", x="Gender", y="Frequency", fill="Target Variable")+
+  scale_fill_manual(values= c("No_Disease" = "blue", "Disease"= "red"), labels= c("Disease", "No Disease"))+
+  theme(panel.background = element_blank())
+
+
+
+# mydata.clean %>% 
+
+  # group_by(sex, target) %>% 
+  # 
+  # summarise(count = n()) 
+```
+
+**No Disease**
+
+
+```{r}
+mydata.clean %>%
+  filter(target == "No_Disease") %>%
+
+     group_by(sex, chest_pain) %>%
+
+     summarise(n = n()) %>%
+
+     mutate(percentage = (n / sum(n) * 100) ) %>%
+
+     ungroup() %>%
+     ggplot(aes(x = chest_pain, y = percentage, fill = chest_pain)) +
+
+     geom_bar(stat = "identity", position = "dodge") +
+  geom_text(aes(label = paste0(round(percentage, 1), "%")), 
+            position = position_stack(vjust = 0.5), size = 5, color = "white") +
+
+     facet_wrap(~sex) +
+
+     labs(title = "Distribution of Chest Pain Levels Among Each Gender - No Disease", 
+
+          x = "Chest Pain Level (0-3)", 
+
+          y = "Percentage", fill = "Chest Pain Levels") +
+
+     theme(panel.background = element_blank())
+```
+
+
+
+**With Heart Disease**
+
+```{r}
+mydata.clean %>%
+  filter(target == "Disease") %>%
+
+     group_by(sex, chest_pain) %>%
+
+     summarise(n = n()) %>%
+
+     mutate(percentage = (n / sum(n) * 100) ) %>%
+
+     ungroup() %>%
+     ggplot(aes(x = chest_pain, y = percentage, fill = chest_pain)) +
+
+     geom_bar(stat = "identity", position = "dodge") +
+  geom_text(aes(label = paste0(round(percentage, 1), "%")), 
+            position = position_stack(vjust = 0.5), size = 5, color = "white") +
+
+     facet_wrap(~sex) +
+
+     labs(title = "Distribution of Chest Pain Levels Among Each Gender with Heart Disease", 
+
+          x = "Chest Pain Level (0-3)", 
+
+          y = "Percentage", fill = "Chest Pain Levels") +
+
+     theme(panel.background = element_blank())
+```
 
 
 
 
+
+
+
+**Age Distribution**
+
+For participants with heart disease, there appears to be more participants who have the disease around their 50s, while those without the disease shows a skewness to the left, 
 
 
 ```{r}
 ggplot(mydata.clean, aes(x=age, fill=factor(target))) +
 geom_histogram(bindwith = 4, position = "dodge", color = "black")+
-  xlim(0,100)+
-  ylim(0,80)+
+  # xlim(0,90)+
+  ylim(0,70)+
 labs(title="Age Distribution of Participants With and Without Heart Disease", x="Age", y="Frequency", fill="Target Variable") +
 scale_fill_manual(values =c("No_Disease" = "blue", "Disease" = "red"), labels= c("Disease", "No Disease"))+
 facet_wrap(~target, scales = "free_y", labeller = labeller(target = 
@@ -316,6 +412,11 @@ facet_wrap(~target, scales = "free_y", labeller = labeller(target =
 
 
 
+
+**Chest Pain Levels**
+
+
+Participants reporting chest pain levels 1 to 3 
 
 
 
@@ -350,37 +451,11 @@ ggplot(aes(x=chest_pain, y=count, fill= factor(target))) +
 
 
 
-```{r}
-mydata.clean %>% 
-
-  group_by(sex, target) %>% 
-
-  summarise(count = n()) %>% 
-
-  group_by(sex) %>% 
-
-  mutate(percentage = (count / sum(count)) * 100) %>%
-
-ggplot(aes(x=sex, y=count, fill= factor(target))) +
-  geom_bar(stat = "identity")+
-  geom_text(aes(label = paste0(round(percentage, 1), "%")), 
-            position = position_stack(vjust = 0.5), size = 5, color = "white") + 
-  labs(title="Frequency and Percentage of Participants With and Without Heart Disease for Males and Females", x="Gender", y="Frequency", fill="Target Variable")+
-  scale_fill_manual(values= c("No_Disease" = "blue", "Disease"= "red"), labels= c("Disease", "No Disease"))+
-  theme(panel.background = element_blank())
 
 
+**Exercise-Induced Angina**
 
-# mydata.clean %>% 
-
-  # group_by(sex, target) %>% 
-  # 
-  # summarise(count = n()) 
-```
-
-
-
-
+Participants who experienced angina while exercising and were diagnosed with heart disease made up around 20%. Alternatively, around 67% of participants who did not experience angina while exercising were diagnosed with heart disease. These statistics may indicate the angina may not be a factor when diagnosing heart disease.
 
 ```{r}
 mydata.clean %>% 
@@ -404,7 +479,17 @@ ggplot(aes(x=exercise_induced_angina, y=count, fill= factor(target))) +
 
 
 
+**Resting Blood Pressure, Cholesterol and Age**
 
+Blood pressure and cholesterol are perceived to be two indicators of heart health. Blood pressure measures the force in the arteries as the heart pumps, while cholesterol is a waxy, fat-like substance found in the blood and can impact heart health if there are high levels discovered. Because each variable is a measurement of the performance of blood vessels in connection with the heart, we decided to look at each variable separately and their relationship with one another and with age. Do participants with and without heart disease have different blood pressure and cholesterol levels, and do these levels vary with age?
+
+When analyzing the distribution of participants with and without heart disease by resting blood pressure, there weren't  discernible differences, with a couple of slight exceptions. The number of participants without heart disease showed skewness to the right, and the range of blood pressure was slightly wider for that group. The center distribution for those with the disease appears to be around a lower blood pressure value than center of the distribution for those without the disease. This also appears to be the case when comparing the frequency of cholesterol values for those with and without heart disease, with the center of the distribution for those with the disease aligning with a value of around 200, slightly lower than that depicted for those without the disease.
+
+We compared resting blood pressure with age and cholesterol, respectively, for those with and without heart disease. There was a cluster of participants with the disease between the ages of 40 and 60 and blood pressure levels between 100 and 150. Conversely, for those without the disease, there was slightly less of a cluster and more spread of age and blood pressure levels, including outliers of people with blood pressure levels at or near 200 and non-disease participants in their 70s.
+
+The relationship between blood pressure and cholesterol followed a similar pattern for blood pressure and age. Participants with the disease were clustered between blood pressure values 100 and 150, and between 200 and 300 cholesterol values. Those without the disease showed slightly more spread with the same blood pressure outliers as previously noted and outliers of participants with cholesterol levels around 400.
+
+Because there doesn't appear to be a discernible difference for those with and without the disease, blood pressure, age and cholesterol, taken separately, may not have a strong correlation with the target variable. Additionally, blood pressure doesn't appear to be strongly correlated with age and cholesterol, which is important when considering multicollinearity among the independent variables. 
 
 
 ```{r}
@@ -426,8 +511,10 @@ facet_wrap(~target, scales = "free_y", labeller = labeller(target =
 ggplot(mydata.clean, aes(x=chol, fill=factor(target))) +
 geom_histogram(bindwith = 4, position = "dodge", color = "black")+
   xlim(0,600)+
+  #ylim(0,90)+
 labs(title="Distribution of Cholesterol of Participants \n With and Without Heart Disease", x="Cholesterol", y="Frequency", fill="Target Variable") +
 scale_fill_manual(values =c("No_Disease" = "blue", "Disease" = "red"), labels= c("Disease", "No Disease"))+
+  scale_y_continuous(breaks = seq(0,120, by = 10))+
 facet_wrap(~target, scales = "free_y", labeller = labeller(target = 
     c("No Disease" = "No Disease",
       "Disease" = "Disease")))+
@@ -442,13 +529,18 @@ facet_wrap(~target, scales = "free_y", labeller = labeller(target =
 
 ```{r}
 ggplot(mydata.clean, aes(x=age, y=resting_blood_pressure, color=factor(target))) +
+  #geom_bar(stat = "identity") +
+  #geom_histogram(bindwith = 4, position = "dodge", color = "black")+
   geom_point()+
-  xlim(0,90)+
+  # geom_smooth(method = "lm") +
+   #xlim(0,90)+
   ylim(0,210)+
   #geom_bar()+
 #geom_histogram(bindwith = 4, position = "dodge", color = "black")+
 labs(title="Relationship Between Age and Resting Blood Pressure \n With and Without Heart Disease", x="Age", y="Resting Blood Pressure", color="Target Variable") +
   scale_color_manual(values =c("No_Disease" = "blue", "Disease" = "red"), labels= c("Disease", "No Disease"))+
+  # scale_x_continuous(breaks = seq(0, 90, by = 10))+
+  #scale_y_continuous(breaks = seq(0, 250, by = 50))+
 #scale_fill_manual(values =c("0" = "blue", "1" = "red"), labels= c("No Disease", "Disease"))+
 facet_wrap(~target, scales = "free_y", labeller = labeller(target = 
     c("No Disease" = "No Disease",
@@ -580,6 +672,8 @@ ggplot(plot_data, aes(x = level, y = count, fill = factor(target))) +
 ```
 
 
+ 
+ 
 
 
 
@@ -845,3 +939,13 @@ legend("bottomright", legend=c("Logistic Regression", "Random Forest"), col=c("#
 * https://pmc.ncbi.nlm.nih.gov/articles/PMC9931474/#:~:text=Oldpeak%20=%20ST%20depression%20caused%20by%20activity%20in%20comparison%20to%20rest
 
 * https://www.nature.com/articles/s41598-024-69071-6
+
+* https://medlineplus.gov/heartdiseaseinwomen.html#:~:text=In%20the%20United%20States%2C%20heart,such%20as%20a%20heart%20attack.
+
+* https://give.brighamandwomens.org/7-differences-between-men-and-women/
+
+* https://www.nhlbi.nih.gov/health/coronary-heart-disease/women#:~:text=A%20woman's%20heart%20and%20blood,and%20causes%20delays%20in%20treatment.
+
+* https://medlineplus.gov/lab-tests/measuring-blood-pressure/#:~:text=A%20blood%20pressure%20measurement%20is%20a%20test,artery%20when%20your%20heart%20rests%20between%20beats.
+
+* https://my.clevelandclinic.org/health/articles/11920-cholesterol-numbers-what-do-they-mean
