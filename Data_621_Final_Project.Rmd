@@ -377,7 +377,7 @@ mydata.clean %>%
 
      facet_wrap(~sex) +
 
-     labs(title = "Distribution of Chest Pain Levels Among Each Gender with Heart Disease", 
+     labs(title = "Distribution of Chest Pain Levels For Each Gender with Heart Disease", 
 
           x = "Chest Pain Level (0-3)", 
 
