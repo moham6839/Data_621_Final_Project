@@ -11,6 +11,8 @@ Heart Disease has been the leading cause of death for three decades. Using data 
 
 # Abstract
 
+This study evaluates the effectiveness of Logistic Regression and Random Forest models in predicting heart disease using a small dataset of 13 medical variables. The models were assessed based on sensitivity, specificity, and interpretability, aiming to balance predictive performance with practical application in healthcare settings. Logistic Regression emerged as the preferred model, offering interpretable coefficients that quantify the impact of key predictors, including vessel blockages, chest pain, exercise-induced angina, and gender. While Random Forest demonstrated slightly higher sensitivity and specificity, its complexity limits its utility in resource-limited or clinical environments where explainability is critical.
+The study underscores the importance of actionable insights provided by Logistic Regression, enabling healthcare providers to better assess and mitigate heart disease risk. However, the analysis is constrained by the dataset’s small size, which may affect the generalizability of findings. Future research should consider larger, more diverse datasets, integrating additional factors such as genetic predisposition, lifestyle habits, and family history to enhance model robustness. Alternative machine learning approaches, such as Gradient Boosting Machines or Elastic Net Logistic Regression, could also be explored to achieve a balance between accuracy and interpretability. Additionally, exploring the ability to not only predict disease presence but also its severity might further support clinical applications.
 
 
 # Introduction
@@ -274,7 +276,7 @@ ggplot(gather(mydata), aes(value)) +
 ### Male and Female Participant Distribution
 
 Signs and symptoms of heart disease are different between men and women. While chest pain is a discernible symptom among men, women have less obvious symptoms. While women may also experience chest pressure, other symptoms they may also report include nausea, sweating, vomiting, and pain in the neck, jaw, throat, abdomen or back. Additionally, women have smaller blood vessels and arteries, and the muscular walls of women’s hearts are thinner. Therefore, it can be more difficult to identify heart disease and cause delays in treatment.
-The participants in the study are almost 70% male, and should be taken into consideration when used as an independent variable to predict heart disease. When analyzing the breakdown of male and female participants with and without heart disease, 72.4% of female participants had the disease, an extraordinary high percentage given the small number of female participants. Conversely, almost 58% percent of male participants did not have heart disease. This is significant, since diagnosing heart disease in women is more difficult than in men, for reasons previously stated. The breakdown of males and females with and without heart disease by different chest pain levels brings into further focus how symptoms vary by gender. Unsurprisingly, for participants without heart disease, 72.6% of males and 87.2% of females reported a level 0 chest pain. When analyzing participants with heart disease, the breakdown of chest pain levels between males and females reveals interesting observations. 46.5% of female participants reported a chest pain level of 2, the highest percentage among all levels reported among all participants with heart disease. 38% of males with heart disease reported a chest pain level of 2 as well, which was the 2nd highest percentage among all levels reported among all participants with heart disease. When comparing the highest level of chest pain (3) between males and females, 12.7% of males reported a chest pain level of 3, compared to 5.8% of females who reported the same chest pain levels. This is important to highlight, illustrating how males can exhibit more pronounced chest pain levels compared to their female counterparts. For 
+The participants in the study are almost 70% male, and should be taken into consideration when used as an independent variable to predict heart disease. When analyzing the breakdown of male and female participants with and without heart disease, 72.4% of female participants had the disease, an extraordinary high percentage given the small number of female participants. Conversely, almost 58% percent of male participants did not have heart disease. This is significant, since diagnosing heart disease in women is more difficult than in men, for reasons previously stated. The breakdown of males and females with and without heart disease by different chest pain levels brings into further focus how symptoms vary by gender. Unsurprisingly, for participants without heart disease, 72.6% of males and 87.2% of females reported a level 0 chest pain. When analyzing participants with heart disease, the breakdown of chest pain levels between males and females reveals interesting observations. 46.5% of female participants reported a chest pain level of 2, the highest percentage among all levels reported among all participants with heart disease. 38% of males with heart disease reported a chest pain level of 2 as well, which was the 2nd highest percentage among all levels reported among all participants with heart disease. When comparing the highest level of chest pain (3) between males and females, 12.7% of males reported a chest pain level of 3, compared to 5.8% of females who reported the same chest pain levels. This is important to highlight, illustrating how males can exhibit more pronounced chest pain levels compared to their female counterparts. 
 
 ```{r}
 gender_data <- mydata.clean %>%
@@ -394,7 +396,7 @@ mydata.clean %>%
 
 **Age Distribution**
 
-For participants with heart disease, there appears to be more participants who have the disease around their 50s, while those without the disease shows a skewness to the left, 
+For participants with heart disease, there appears to be higher frequencies of participants who have the disease around their 40s and 50s. Those without the disease had higher frequencies of participants with ages their late 50s to 60s. The age of participants with the disease shows slightly more spread than those without the disease.
 
 
 ```{r}
@@ -416,7 +418,7 @@ facet_wrap(~target, scales = "free_y", labeller = labeller(target =
 **Chest Pain Levels**
 
 
-Participants reporting chest pain levels 1 to 3 
+Participants reporting chest pain levels 1, 2 and 3, respectively, overwhelmingly were diagnosed with heart disease. The percentage of participants with the disease that reported chest pain levels 1, 2, or 3 declined as the level increased, from 80.2% of heart disease participants reporting level 1 chest pain to 77.1% with level 2 chest pain and 66.2% with level 3. Among participants reporting 0 level chest pain, almost a quarter had the disease, which may indicate that variables other than chest pain may be better indicators for heart disease who aren't exhibiting chest pain.   
 
 
 
@@ -455,7 +457,7 @@ ggplot(aes(x=chest_pain, y=count, fill= factor(target))) +
 
 **Exercise-Induced Angina**
 
-Participants who experienced angina while exercising and were diagnosed with heart disease made up around 20%. Alternatively, around 67% of participants who did not experience angina while exercising were diagnosed with heart disease. These statistics may indicate the angina may not be a factor when diagnosing heart disease.
+Participants who experienced angina while exercising and were diagnosed with heart disease made up around 20%. Alternatively, around 67% of participants who did not experience angina while exercising were diagnosed with heart disease. These statistics may indicate that angina may not be a factor when diagnosing heart disease.
 
 ```{r}
 mydata.clean %>% 
@@ -901,7 +903,7 @@ To determine which model performs better we use AUC-ROC Curve:
 
 AUC-ROC evaluates the ability of a model to distinguish between classes across various thresholds. A higher AUC indicates better discrimination ability.The model with the higher AUC is generally better.
 
-Random Forest Model has higher AUC and below ROC Curve suggest Random Forest Model is better.
+Random Forest Model has higher AUC and below ROC Curve, which suggests that Random Forest Model is better.
 
 ```{r}
 set.seed(1234)
@@ -912,8 +914,6 @@ plot.roc(train$target, rf3$votes[,1], percent=TRUE, col="#FA8072", print.auc=TRU
 legend("bottomright", legend=c("Logistic Regression", "Random Forest"), col=c("#0ABAB5","#FA8072"), lwd=2)
 
 ```
-
-
 
 
 
@@ -949,3 +949,11 @@ legend("bottomright", legend=c("Logistic Regression", "Random Forest"), col=c("#
 * https://medlineplus.gov/lab-tests/measuring-blood-pressure/#:~:text=A%20blood%20pressure%20measurement%20is%20a%20test,artery%20when%20your%20heart%20rests%20between%20beats.
 
 * https://my.clevelandclinic.org/health/articles/11920-cholesterol-numbers-what-do-they-mean
+
+* https://www.cdc.gov/heart-disease/about/coronary-artery-disease.html#:~:text=What%20it%20is,blood%20supply%20to%20the%20heart.
+
+* https://www.nhlbi.nih.gov/health/coronary-heart-disease
+
+* https://www.nhs.uk/conditions/coronary-heart-disease/#:~:text=Coronary%20heart%20disease%20is%20the,confirm%20coronary%20heart%20disease%2C%20including:
+
+* https://www.mayoclinic.org/diseases-conditions/peripheral-artery-disease/symptoms-causes/syc-20350557#:~:text=Leg%20pain%20when%20walking.,in%20the%20legs%20or%20feet.
