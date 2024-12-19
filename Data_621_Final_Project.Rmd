@@ -17,24 +17,69 @@ The study underscores the importance of actionable insights provided by Logistic
 
 # Introduction
 
-Heart Disease is one of, if not the most common, causes of death worldwide. The World Health Organization (WHO) estimates that heart disease accounts for 17.9 million global fatalities annually. According to the Center for Diseases Control (CDC), heart disease has been the leading cause of death in the United States since 1921. The National Institutes of Health (NIH) states that cardiovascular diseases (CVDs) accounted for 20.5 million deaths in 2021, comprising approximately one-third of all global deaths. There are many risk factors associated with heart disease. The CDC has highlighted high blood pressure, high cholesterol, and smoking as key risk factors. While other risk factors such as age and family history cannot be controlled for, other lifestyle factors such as smoking cigarettes, drinking alcohol and poor diet can be attributed to an increased risk for the disease. Despite advances in technology that have enhanced our ability to detect and diagnose heart disease, there are still uncertainties of what factors to pinpoint that can help our understanding of what signs to look for. 
+Heart Disease is one of, if not the most common, causes of death worldwide. The World Health
+Organization (WHO) estimates that heart disease accounts for 17.9 million global fatalities
+annually. According to the Center for Diseases Control (CDC), heart disease has been the leading
+cause of death in the United States since 1921. The National Institutes of Health (NIH) states that
+cardiovascular diseases (CVDs) accounted for 20.5 million deaths in 2021, comprising
+approximately one-third of all global deaths. There are many risk factors associated with heart
+disease. The CDC has highlighted high blood pressure, high cholesterol, and smoking as key risk
+factors. While other risk factors such as age and family history cannot be controlled, other
+lifestyle factors such as smoking cigarettes, drinking alcohol and poor diet can be attributed to an
+increased risk for the disease. Despite advances in technology that have enhanced our ability to
+detect and diagnose heart disease, there are still uncertainties of what factors to pinpoint that can
+help our understanding of what signs to look for.
 
 There are different types of cardiovascular diseases. Here are some common examples:
 
-* Coronary heart disease: This occurs when blood circulation to the cardiac muscle is limited or stopped due to large levels of fat (atheroma) inside the coronary veins. An artery is a major blood vessel that transports blood to the heart. When blood vessels narrow, leading to atheroma formation, blood flow to the heart muscle is reduced. This can cause angina (chest pains). A heart attack can occur if a coronary artery becomes completely blocked. This is a medical emergency that demands immediate attention. When the walls of the coronary arteries become too thin or cholesterol blockages form, this condition develops. Particularly during intense exertion, the heart may not receive enough oxygen-rich blood if these arteries close. It happens when a coronary artery's inner layer is wounded or destroyed. Fatty plaque deposits occur at the injury site as a result of this damage.
+* Coronary Artery Disease (CAD): the most common type of heart disease, CAD occurs when
+there is plaque buildup in the arteries that block blood supply to the heart. An artery is a major
+blood vessel that transports blood to the heart. Over time, the walls of the arteries can become
+clogged with fatty deposits. This process is called atherosclerosis and the fatty deposits are called
+atheroma. This prevents the arteries of the heart from delivering enough oxygen-rich blood to the
+heart.
 
-* Peripheral arterial disease: This develops when the arteries feeding the limbs get clogged (usually the legs). Leg discomfort when walking is the most prevalent sign of peripheral arterial disease. This is usually felt in one or both knees, hips, and calves. Muscle pain, dull discomfort, or heaviness in the leg muscles are all possible symptoms. It frequently comes and goes and is exacerbated by leg exercises such as walking or stair climbing. Peripheral arterial disease (PAD) is defined as the constriction or obstruction of the veins that carry blood from the heart to the legs. The major cause is the buildup of fatty plaque in the arteries, known as atherosclerosis. PAD can damage any blood artery; however, it more commonly affects the legs than the arms. Nonetheless, up to four out of ten people with PAD experience no leg pain. Walking may cause soreness, aches, or cramps in the pelvis, hip, thigh, or calf (claudication).
+* Peripheral Arterial Disease (PAD): This develops when arteries feeding the limbs become
+narrow, reducing blood flow from the heart to the arms and legs. This is usually felt in one or
+both knees, hips, and calves. The major cause is the buildup of fatty plaque in the arteries
+(atherosclerosis). PAD can damage any blood artery; however, it more commonly affects the legs
+than the arms.
 
-* Myocarditis: It is an inflammation of the inner muscles of the heart caused by a variety of parasitic and microbial infections. It is a rare illness with only a few symptoms such as joint discomfort, limb swelling, or fever that cannot be diagnosed from the inside. Myocarditis is uncommon, but when it does occur, it is typically caused by an interior infection. Infections with microorganisms, fungi, parasites, viruses (most often, viruses that cause the flu virus, influenza, or COVID-19), or any other microorganisms can induce myocardial inflammation. Autoimmune diseases such as lupus, sarcoidosis, and others can trigger myocarditis due to the immune system's ability to target any organ in the human body, along with the heart, and cause inflammation. Myocarditis can also be caused by drug usage, environmental exposure, or dangerous chemicals.
+* Myocarditis: It is an inflammation of the inner muscles of the heart caused by a variety of
+parasitic and microbial infections. Infections with microorganisms, fungi, parasites, viruses
+(most often, viruses that cause the flu virus, influenza, or COVID-19), or any other
+microorganisms can induce myocardial inflammation. Autoimmune diseases can also trigger
+myocarditis due to the immune system's ability to target any organ in the human body, along with
+the heart, and cause inflammation.
 
-* Congenital heart disease: It is a condition that is associated with one or even more structural cardiovascular issues which have occurred since birth. A “congenital” handicap is one that is apparent at birth. Congenital heart disease, commonly referred as congenital heart defect, changes the nature of blood through the heart from birth. Congenital heart abnormalities do not always cause symptoms. Complicated defects, on the other hand, could lead to life-threatening consequences. Infants with congenital cardiac disease can now live into adulthood because of breakthroughs in detection and therapy. Congenital heart disease symptoms may not develop until the patient is an adult.
+* Congenital heart disease: It is a condition that is associated with one or even more structural
+cardiovascular issues which have occurred since birth. It changes the nature of blood through the
+heart from birth. Congenital heart disease symptoms may not develop until the patient is an
+adult.
 
-* An arrhythmia is an irregular heartbeat: If a person has this condition, their heart may beat excessively rapid, extremely slow, very early, or in an irregular rhythm. This occurs when the electrical impulses that control heartbeats fail. An irregular heartbeat can feel like a rushing or fluttering heart.  
+* Arrhythmia: an irregular heartbeat. If a person has this condition, their heart may beat
+excessively rapidly, extremely slow, very early, or in an irregular rhythm. This occurs when the
+electrical impulses that control heartbeats fail. An irregular heartbeat can feel like a rushing or
+fluttering heart.
 
-This objective of this study is to build classification models that can help predict heart disease based on variables in the dataset. The data utilizes information from participants located in Cleveland, Hungary, Switzerland, and Long Beach V. Independent variables in the dataset that will be explored include age, gender, cholesterol, Chest Pain levels (0-3), resting blood pressure, whether or not exercise-induced angina is present, maximum heart rate achieved, oldpeak, number of major vessels colored by flourosopy, the slope of the peak exercise ST segment, fasting blood sugar, resting electrocardiographic results, and thallium heart scan results. We will explore the relationships between the independent variables and the dependent variable, as well as the relationships with the independent variables among each other. The types of models used for this study were Logistic Regression and Random Forest. We will explain our reasoning for choosing these methods, as well as the metrics we used to evaluate the performance of each model and ultimately the model we chose to select. Finally, we will explain further what we should take away from the results, factors not in the dataset that should be considered in future studies that could potentially provide further clarity of detecting heart disease, and other areas concerning heart disease that can be built upon our models for future exploration. 
-
-
-
+The objective of this study is to build classification models that can help predict heart disease
+based on variables in the dataset. We chose this dataset because we believe it incorporates
+variables that are pertinent to understanding how we can better predict heart disease. There are
+1,025 participants in the study, involving 13 different features. The data utilizes information from
+participants located in Cleveland, Hungary, Switzerland, and Long Beach V . Independent
+variables in the dataset that will be explored include age, gender, cholesterol, Chest Pain levels
+(0-3), resting blood pressure, whether or not exercise-induced angina is present, maximum heart
+rate achieved, oldpeak, number of major vessels colored by fluoroscopy, the slope of the peak
+exercise ST segment, fasting blood sugar, resting electrocardiographic results, and thallium heart
+scan results. We will explore the relationships between the independent variables and the
+dependent variable, as well as the relationships with the independent variables among each other.
+The types of models used for this study were Logistic Regression and Random Forest. We will
+explain our reasoning for choosing these methods, as well as the metrics we used to evaluate the
+performance of each model and ultimately the model we chose to select. Finally, we will explain
+further what we should take away from the results, factors not in the dataset that should be
+considered in future studies that could potentially provide further clarity of detecting heart
+disease, and other areas concerning heart disease that can be built upon our models for future
+exploration.
 
 
 
